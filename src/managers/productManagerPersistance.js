@@ -26,17 +26,17 @@ export default {
     getAll,
     getById: (id) => {
         const products = getAll();
-        return products.find(product=> user.id === id) || null;
+        return products.find(product=> product.id === id) || null;
     },
-    create: (user) => {
+    create: (product) => {
         const products = getAll();
-        products.push(user);
+        products.push(product);
         saveAll(products);
-        return user;
+        return product;
     },
     update: (id, data) => {
         const products = getAll();
-        const index = products.findIndex(product=> user.id === id);
+        const index = products.findIndex(product=> product.id === id);
         if (index === -1) return null;
         products[index] = { ...products[index], ...data };
         saveAll(products);
@@ -44,7 +44,7 @@ export default {
     },
     delete: (id) => {
         let products = getAll();
-        products = products.filter(product=> user.id !== id);
+        products = products.filter(product=> product.id !== id);
         saveAll(products);
     }
 };
