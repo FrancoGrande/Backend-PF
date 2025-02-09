@@ -1,38 +1,49 @@
-//puntos de acceso productos
-
-import {Router} from "express";
-import productoController from "../controller/product.controller.js";
-
+import { Router } from "express";
+import productManager from "../managers/productManagerPersistance.js";
+import { generarIdAleatorio } from "../utils.js";
 
 const router = Router();
 
-// const products= []
-// //obtener un producto
-// router.get('/', (req, res) => {
-//     res.send({products})
-// })
-// // crear producto
-// router.post('/', (req, res) => {
-//     const newProduct =  req.body;
-//     products.push(newProduct);
-//     res.status(201).json({message:"producto creado"})
-// })
+// Rutas CRUD de productos
+router.get('/', (req, res) => {
+    res.json(productManager.getAll());
+});
 
-// router.put('/', (req, res) => {
-//     res.send("12312")
-// })
+router.get('/:id', (req, res) => {
+    const id = req.params.id;
+    const producto = productManager.getById(id);
 
-// router.delete('/api/productos:id', (req, res) => {
-//     res.send("zxczxc")
-// })
+    if (!producto) {
+        return res.status(404).json({ error: 'Producto no encontrado' });
+    }
 
+    res.json(producto);
+});
 
-router.get('/', productoController.getAll);           // Obtener todos los productos
-router.get('/:id', productoController.getById);        // Obtener un producto por ID
-router.post('/', productoController.create);           // Crear un nuevo producto
-router.put('/:id', productoController.update);         // Actualizar un producto por ID
-router.delete('/:id', productoController.delete);      // Eliminar un producto por ID
+router.post('/', (req, res) => {
+    const nuevoProducto = {
+        id: generarIdAleatorio(),
+        ...req.body
+    };
 
+    productManager.create(nuevoProducto);
+    res.status(201).json(nuevoProducto);
+});
 
+router.put('/:id', (req, res) => {
+    const id = req.params.id;
+    const productoActualizado = productManager.update(id, req.body);
+
+    if (!productoActualizado) {
+        return res.status(404).json({ error: 'Producto no encontrado' });
+    }
+
+    res.json(productoActualizado);
+});
+
+router.delete('/:id', (req, res) => {
+    productManager.delete(req.params.id);
+    res.status(204).send();
+});
 
 export default router;
