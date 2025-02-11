@@ -16,9 +16,6 @@ async function cargarDatos() {
 await cargarDatos();
 
 export function generarIdAleatorio(longitud = 10) {
-    if (longitud <= 0) {
-        throw new Error('La longitud debe ser un número mayor a 0.');
-    }
 
     const caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     let resultado = '';
