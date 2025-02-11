@@ -2,13 +2,17 @@ import  {dirname} from "path";
 import {fileURLToPath} from "url";
 import fs from 'fs/promises';
 
+
+// armo los arrays vacios de productos y usuarios
 let productos = [];
 let usuarios = [];
 
+
+// traigo los datos de los archivos y los almarecno en las variables
 async function cargarDatos() {
     const productosData = await fs.readFile('./src/data/products.json', 'utf-8');
     const usuariosData = await fs.readFile('./src/data/users.json', 'utf-8');
-
+// convierto los strings en arrays
     productos = JSON.parse(productosData);
     usuarios = JSON.parse(usuariosData);
 }
@@ -16,7 +20,7 @@ async function cargarDatos() {
 await cargarDatos();
 
 export function generarIdAleatorio(longitud = 10) {
-
+// Generando Id unico para cada producto/user
     const caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     let resultado = '';
 
@@ -31,6 +35,7 @@ export function generarIdAleatorio(longitud = 10) {
             const indiceAleatorio = Math.floor(Math.random() * caracteres.length);
             resultado += caracteres[indiceAleatorio];
         }
+// Si NO se repite lo almacena y si se repite lo vuelve a generar
     } while (idExiste(resultado));
 
     return resultado;
