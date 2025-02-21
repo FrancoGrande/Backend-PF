@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import __dirname from '../utils.js';  // Para obtener el directorio base del proyecto
+// import e from 'express';
 
 // Ruta dinámica hacia el archivo JSON
 const filePath = path.join(__dirname, 'data', 'users.json');
@@ -12,6 +13,7 @@ const initializeFile = () => {
     }
 };
 
+
 // Obtiene todos los usuarios
 const getAll = () => {
     initializeFile();
@@ -19,10 +21,12 @@ const getAll = () => {
     return JSON.parse(data || '[]');
 };
 
+
 // Guarda todos los usuarios
 const saveAll = (users) => {
     fs.writeFileSync(filePath, JSON.stringify(users, null, 2));
 };
+
 
 export default {
     getAll,
@@ -30,12 +34,14 @@ export default {
         const users = getAll();
         return users.find(user => user.id === id) || null;
     },
+    
     create: (user) => {
         const users = getAll();
         users.push(user);
         saveAll(users);
         return user;
     },
+
     update: (id, data) => {
         const users = getAll();
         const index = users.findIndex(user => user.id === id);
@@ -44,10 +50,25 @@ export default {
         saveAll(users);
         return users[index];
     },
+
     delete: (id) => {
         let users = getAll();
-        users = users.filter(user => user.id !== id);
-        saveAll(users);
+        const userExist = users.some(user => user.id === id);
+
+            if (!userExist){
+                return {message: "el usuario no existe", status: 404}
+            }
+
+
+            try {
+                users = users.filter(user => user.id !== id);
+                saveAll(users);
+                return {message: "usuario eliminado", status: 200}
+                
+            } catch (error) {
+                console.log("error al borrar usuario", error);
+                return {message: "error al borrar usuario", status: 500}
+            }
     }
 };
 

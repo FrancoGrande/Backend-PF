@@ -12,8 +12,10 @@
   "description": "",
   "dependencies": {
     "express": "^4.21.2",
+    "express-handlebars": "^8.0.1",
     "nodemon": "^3.1.9",
-    "proyectofinal-francogrande": "file:"
+    "proyectofinal-francogrande": "file:",
+    "socket.io": "^4.8.1",
+    "socket.io-client": "^4.8.1"
   }
 }
-

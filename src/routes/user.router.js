@@ -12,13 +12,15 @@ router.get('/', (req, res) => {
 
 router.get('/:id', (req, res) => {
     const id = req.params.id;
-    const user = userManager.getById(id);
 
-    if (!user) {
-        return res.status(404).json({ error: 'Usuario no encontrado' });
+    try {
+        const user = userManager.getById(id);
+        res.json(user);
+
+    } catch (error) {
+        return res.status(404).json({ error: 'Usuario no encontrado', error });
     }
 
-    res.json(user);
 });
 
 router.post('/', (req, res) => {
@@ -34,17 +36,18 @@ router.post('/', (req, res) => {
 router.put('/:id', (req, res) => {
     const id = req.params.id;
     const usuarioActualizado = userManager.update(id, req.body);
-
-    if (!usuarioActualizado) {
+    try {
+        res.json(usuarioActualizado);
+    } catch (error) {
         return res.status(404).json({ error: 'Usuario no encontrado' });
     }
 
-    res.json(usuarioActualizado);
 });
 
 router.delete('/:id', (req, res) => {
-    userManager.delete(req.params.id);
-    res.status(204).send();
+    
+    const result =userManager.delete(req.params.id);
+    res.status(result.status).send(result.message);
 });
 
 export default router;

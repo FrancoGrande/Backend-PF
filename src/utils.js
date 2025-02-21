@@ -12,6 +12,7 @@ let usuarios = [];
 async function cargarDatos() {
     const productosData = await fs.readFile('./src/data/products.json', 'utf-8');
     const usuariosData = await fs.readFile('./src/data/users.json', 'utf-8');
+
 // convierto los strings en arrays
     productos = JSON.parse(productosData);
     usuarios = JSON.parse(usuariosData);
@@ -20,6 +21,7 @@ async function cargarDatos() {
 await cargarDatos();
 
 export function generarIdAleatorio(longitud = 10) {
+    
 // Generando Id unico para cada producto/user
     const caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     let resultado = '';
@@ -49,6 +51,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 export default __dirname;
+
 
 
 

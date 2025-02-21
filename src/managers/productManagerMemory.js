@@ -1,6 +1,6 @@
 import fs from 'fs';
 
-const filePath = './data/productos.json';  // Archivo JSON para persistencia
+const productos= []
 
 export default {
     getAll: () => {
