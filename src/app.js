@@ -25,6 +25,7 @@ mongoose.connect(config.MONGO_URL)
     })
     .catch((error) => {
         console.log('Error al conectar a la base de datos:', error);
+        process.exit();
     });
 
 app.listen(config.PORT, () => {
