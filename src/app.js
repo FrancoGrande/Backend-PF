@@ -4,6 +4,7 @@ import mongoose from 'mongoose';
 import __dirname from './utils.js';
 import { config } from './config/config.js';
 import viewsRouter from './routes/views.router.js';
+import productRouter from './routes/product.router.js';
 
 const app = express(); //inicializo app para usar express
 
@@ -34,5 +35,6 @@ app.listen(config.PORT, () => {
 
 
 app.use('/', viewsRouter);
+app.use('/product', productRouter);
 
 
