@@ -22,8 +22,7 @@ router.post('/', async (req, res) => {
 
 
 // read
-
-//Ver un producto
+//Ver un solo producto
 router.get('/:cod', async (req, res) => {
     try{
         const product = await ProductModel.findOne({cod: req.params.cod}).lean();
@@ -48,13 +47,18 @@ router.get('/:cod', async (req, res) => {
     })
 
     //borrar producto por ID
-
     router.delete('/:pid', async (req, res) => {
-        const productoElminiar = await ProductModel.findByIdAndDelete(req.params.pid);
-        if (!productoElminiar) {
-            return res.status(404).json({ message: 'Producto no encontrado' });
+        try {
+            const productoElminiar = await ProductModel.findByIdAndDelete(req.params.pid);
+            if (!productoElminiar) {
+                return res.status(404).json({ message: 'Producto no encontrado' });
+            }
+            res.redirect('/');
+            console.log(`Producto ${productoElminiar.nombre} con ID ${req.params.pid} eliminado`);
+        } catch (error) {
+            console.error({error})
+            return res.render('error',{error:"error al eliminar producto"})
         }
-        res.json({ message: 'Producto eliminado exitosamente' })
     })
 
     export default router;

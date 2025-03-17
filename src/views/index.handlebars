@@ -18,6 +18,8 @@
     {{#each products}}
         <h2>Codigo:{{this.cod}} - Nombre: {{this.nombre}} - Precio: {{this.precio}} - Categoría: {{this.categoria}}</h2>
         <a href="/product/{{this.cod}}">Ver detalles</a>
+        <form action="/product/{{this._id}}?_method=DELETE" method="POST">
+        <button type="submit">Eliminar</button></form>
     {{/each}}
 </ul>
 

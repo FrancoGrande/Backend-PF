@@ -5,6 +5,7 @@ import __dirname from './utils.js';
 import { config } from './config/config.js';
 import viewsRouter from './routes/views.router.js';
 import productRouter from './routes/product.router.js';
+import methodOverride from 'method-override';
 
 const app = express(); //inicializo app para usar express
 
@@ -32,6 +33,8 @@ mongoose.connect(config.MONGO_URL)
 app.listen(config.PORT, () => {
     console.log(`Servidor escuchando en el puerto ${config.PORT}`);
 });
+
+app.use(methodOverride('_method'));
 
 
 app.use('/', viewsRouter);
