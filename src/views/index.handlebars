@@ -5,23 +5,24 @@
 <!-- Formulario para agregar productos -->
 <h2>Agregar producto</h2>
 <form action="/product" method="POST">
-  <input type="number" name="cod" id="cod" placeholder="cod" required />
-  <input type="text" name="nombre" id="nombre" placeholder="Nombre" required />
-  <input type="number" name="precio" id="precio" placeholder="Precio" required />
-  <input type="text" name="categoria" id="categoria" placeholder="categoría" required />
-  <button type="submit">Agregar</button>
+    <input type="number" name="cod" id="cod" placeholder="cod" required />
+    <input type="text" name="nombre" id="nombre" placeholder="Nombre" required />
+    <input type="number" name="precio" id="precio" placeholder="Precio" required />
+    <input type="text" name="categoria" id="categoria" placeholder="categoría" required />
+    <button type="submit">Agregar</button>
 </form>
 
 
-<h1>Lista de productos</h1>
-<ul>
-    {{#each products}}
-        <h2>Codigo:{{this.cod}} - Nombre: {{this.nombre}} - Precio: {{this.precio}} - Categoría: {{this.categoria}}</h2>
-        <a href="/product/{{this.cod}}">Ver detalles</a>
-        <form action="/product/{{this._id}}?_method=DELETE" method="POST">
-        <button type="submit">Eliminar</button></form>
-    {{/each}}
-</ul>
+<h1>Productos</h1>
 
 
+<!-- Controles de paginación -->
+{{#if info.hasPrevPage}}
+<a class="btn btn-primary" href="/?page={{info.prevPage}}&limit=5&sort={{../sort}}&query={{../query}}&type={{../type}}">Página Anterior</a>
+{{/if}}
+<p class="text-center">Página {{info.page}} de {{info.totalPages}}</p>
+{{#if info.hasNextPage}}
+<a class="btn btn-primary" href="/?page={{info.nextPage}}&limit=5&sort={{../sort}}&query={{../query}}&type={{../type}}">Página Siguiente</a>
+{{/if}}
 
+<h2 class="text-xl font-semibold mt-4">Listado de {{info.totalDocs}} productos que vamos viendo de a {{info.limit}} productos por página de un total de {{info.totalPages}} páginas.</h2>

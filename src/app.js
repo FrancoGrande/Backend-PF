@@ -6,6 +6,7 @@ import { config } from './config/config.js';
 import viewsRouter from './routes/views.router.js';
 import productRouter from './routes/product.router.js';
 import methodOverride from 'method-override';
+import ProductModel from './models/product.model.js';
 
 const app = express(); //inicializo app para usar express
 
@@ -20,19 +21,28 @@ app.set('view engine', 'handlebars');
 
 app.use(express.static(__dirname + '/public'));
 
+const mongoURL = 'mongodb://localhost:27017/usuarios';
 
-mongoose.connect(config.MONGO_URL)
-    .then(() => {
-        console.log('Conexión a la base de datos establecida: ', config.MONGO_URL);
-    })
-    .catch((error) => {
-        console.log('Error al conectar a la base de datos:', error);
-        process.exit();
-    });
+const environment = async () => {
+    await mongoose.connect(mongoURL);
+}
+environment();
+
+// mongoose.connect(config.MONGO_URL)
+//     .then(() => {
+//         console.log('Conexión a la base de datos establecida: ', config.MONGO_URL);
+
+//     })
+//     .catch((error) => {
+//         console.log('Error al conectar a la base de datos:', error);
+//         process.exit();
+//     });
 
 app.listen(config.PORT, () => {
     console.log(`Servidor escuchando en el puerto ${config.PORT}`);
 });
+
+
 
 app.use(methodOverride('_method'));
 
