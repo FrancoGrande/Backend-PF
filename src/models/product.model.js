@@ -2,7 +2,9 @@ import mongoose from "mongoose";
 import mongoosePaginate from "mongoose-paginate-v2";
 
 
-const productCollection = "product";
+// const productCollection = "product";
+
+const productCollection = "productos";
 const productSchema = new mongoose.Schema({
     cod: {type: Number, required: true, unique: true},
     nombre : {type: String, required: true},
@@ -10,6 +12,7 @@ const productSchema = new mongoose.Schema({
     stock : {type: Number, required: false},
     categoria : {type: String, required: true},
 })
+
 productSchema.plugin(mongoosePaginate);
 
 const ProductModel = mongoose.model(productCollection, productSchema);

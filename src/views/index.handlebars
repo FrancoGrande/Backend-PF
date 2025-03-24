@@ -25,4 +25,10 @@
 <a class="btn btn-primary" href="/?page={{info.nextPage}}&limit=5&sort={{../sort}}&query={{../query}}&type={{../type}}">Página Siguiente</a>
 {{/if}}
 
-<h2 class="text-xl font-semibold mt-4">Listado de {{info.totalDocs}} productos que vamos viendo de a {{info.limit}} productos por página de un total de {{info.totalPages}} páginas.</h2>
+<h2 class="text-xl font-semibold mt-4"> {{info.totalDocs}} encontrados:</h2>
+
+{{#each info.docs}}
+    <div>
+        <p> {{this.nombre}} - 💵 ${{this.precio}}</p>
+    </div>
+{{/each}}

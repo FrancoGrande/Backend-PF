@@ -21,10 +21,13 @@ app.set('view engine', 'handlebars');
 
 app.use(express.static(__dirname + '/public'));
 
-const mongoURL = 'mongodb://localhost:27017/usuarios';
+const mongoURL = 'mongodb://127.0.0.1:27017/miPrimerDB';
+
 
 const environment = async () => {
     await mongoose.connect(mongoURL);
+    console.log('Conexión a la base de datos establecida: ', mongoURL);
+
 }
 environment();
 
