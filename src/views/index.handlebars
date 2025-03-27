@@ -17,18 +17,24 @@
 
 
 <!-- Controles de paginación -->
+<div class="paginas-container">
 {{#if info.hasPrevPage}}
-<a class="btn-prev" href="/?page={{info.prevPage}}&limit=5&sort={{../sort}}&query={{../query}}&type={{../type}}">Página Anterior</a>
+    <a class="btn-prev" href="/?page={{info.prevPage}}&limit=5">Página Anterior</a>
 {{/if}}
+
 <p class="text-center">Página {{info.page}} de {{info.totalPages}}</p>
+
 {{#if info.hasNextPage}}
-<a class="btn-prev" href="/?page={{info.nextPage}}&limit=5&sort={{../sort}}&query={{../query}}&type={{../type}}">Página Siguiente</a>
+    <a class="btn-prev" href="/?page={{info.nextPage}}&limit=5">Página Siguiente</a>
 {{/if}}
+</div>
 
 <h2 class="text-xl font-semibold mt-4"> {{info.totalDocs}} encontrados:</h2>
 
+<div class="product-container">
 {{#each info.docs}}
-    <div>
+    <div class="product-card">
         <p> {{this.nombre}} - 💵 ${{this.precio}}</p>
     </div>
 {{/each}}
+</div>

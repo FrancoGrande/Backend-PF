@@ -5,20 +5,22 @@ const router = Router();
 
 router.get("/", async (req, res) => {
     try {
-const elementosPorPagina =  req.query.page ?? 10;
-const pagActual = req.query.page ?? 1;
+        const elementosPorPagina = parseInt(req.query.limit) || 5;
+        const pagActual = parseInt(req.query.page) || 1;
 
-        let infoPaginate = await ProductModel.paginate({}, { limit: elementosPorPagina, page: pagActual });
+        let infoPaginate = await ProductModel.paginate(
+            {},
+            {
+                limit: elementosPorPagina,
+                page: pagActual,
+                lean: true
+            }
+        );
 
-        // const products = await ProductModel.find().lean(); // usamos lean() para convertir los documentos en objetos JavaScript sin usar .toObject() en cada elemento // PROYECTO CON MONGODB NUBE
         res.render("index", { info: infoPaginate });
-
-        console.log(infoPaginate);
-        infoPaginate.docs = infoPaginate.docs.map((doc) => doc.toObject());
-        } catch (error) {
+    } catch (error) {
         res.status(500).json({ error: error.message });
-        }
-    });
-
+    }
+});
 
 export default router;
