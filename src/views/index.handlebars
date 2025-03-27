@@ -13,8 +13,20 @@
 </form>
 
 
-<h2>Productos</h2>
 
+
+
+
+
+<h2 class="text-xl font-semibold mt-4"> {{info.totalDocs}} Productos encontrados:</h2>
+
+<div class="product-container">
+{{#each info.docs}}
+    <div class="product-card">
+        <p> {{this.nombre}} - 💵 ${{this.precio}}</p>
+    </div>
+{{/each}}
+</div>
 
 <!-- Controles de paginación -->
 <div class="paginas-container">
@@ -27,14 +39,4 @@
 {{#if info.hasNextPage}}
     <a class="btn-prev" href="/?page={{info.nextPage}}&limit=5">Página Siguiente</a>
 {{/if}}
-</div>
-
-<h2 class="text-xl font-semibold mt-4"> {{info.totalDocs}} encontrados:</h2>
-
-<div class="product-container">
-{{#each info.docs}}
-    <div class="product-card">
-        <p> {{this.nombre}} - 💵 ${{this.precio}}</p>
-    </div>
-{{/each}}
 </div>
