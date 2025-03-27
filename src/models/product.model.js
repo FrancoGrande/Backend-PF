@@ -4,7 +4,7 @@ import mongoosePaginate from "mongoose-paginate-v2";
 
 // const productCollection = "product";
 
-const productCollection = "productos";
+const productCollection = "products";
 const productSchema = new mongoose.Schema({
     cod: {type: Number, required: true, unique: true},
     nombre : {type: String, required: true},

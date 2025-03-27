@@ -25,8 +25,15 @@ const mongoURL = 'mongodb://127.0.0.1:27017/miPrimerDB';
 
 
 const environment = async () => {
-    await mongoose.connect(mongoURL);
-    console.log('Conexión a la base de datos establecida: ', mongoURL);
+mongoose.connect(config.MONGO_URL)
+    .then(() => {
+        console.log('Conexión a la base de datos establecida: ', config.MONGO_URL);
+
+    })
+    .catch((error) => {
+        console.log('Error al conectar a la base de datos:', error);
+        process.exit();
+    });
 
 }
 environment();
