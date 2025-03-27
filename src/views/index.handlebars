@@ -23,8 +23,11 @@
 <div class="product-container">
 {{#each info.docs}}
     <div class="product-card">
-        <p> {{this.nombre}} - 💵 ${{this.precio}}</p>
-
+        <h3> {{this.nombre}} </h3>
+        <div class="product-info">
+        <p> 💵 ${{this.precio}}</p>
+        <p> Categoría: {{this.categoria}}</p>
+        </div>
     <!-- Botón de eliminar -->
     <form action="/product/{{this._id}}?_method=DELETE" method="POST">
         <button type="submit" class="btn-eliminar">🗑️ Eliminar</button>
