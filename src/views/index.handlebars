@@ -24,6 +24,12 @@
 {{#each info.docs}}
     <div class="product-card">
         <p> {{this.nombre}} - 💵 ${{this.precio}}</p>
+
+    <!-- Botón de eliminar -->
+    <form action="/product/{{this._id}}?_method=DELETE" method="POST">
+        <button type="submit" class="btn-eliminar">🗑️ Eliminar</button>
+    </form>
+    
     </div>
 {{/each}}
 </div>
