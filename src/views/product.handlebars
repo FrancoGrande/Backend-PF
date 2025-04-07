@@ -1,7 +1,20 @@
+<a href="/" class="btn-volver">⬅ Volver al inicio</a>
+
 <div class="product-container"></div>
     <h2>{{product.cod}} - {{product.nombre}}</h2>
     <img src="/img/{{product.thumbnail}}" alt="Imagen del producto" height="100px" width="100px">
     <p>Precio: ${{product.precio}}</p>
     <p>Categoría: {{product.categoria}}</p>
-    <p>Ruta del archivo: {{product.thumbnail}}</p>
+
+</div>
+
+ <!-- Formulario de edición rápida -->
+ <h3>Editar producto</h3>
+  <form action="/product/{{product._id}}?_method=PUT" method="POST" class="form-editar">
+    <input class="input-style" type="text" name="nombre" placeholder="Nuevo nombre" value="{{product.nombre}}" required>
+    <input class="input-style" type="number" name="precio" placeholder="Nuevo precio" value="{{product.precio}}" required>
+    <input class="input-style" type="number" name="stock" placeholder="Stock" value="{{product.stock}}">
+    <input class="input-style" type="text" name="categoria" placeholder="Categoría" value="{{product.categoria}}" required>
+    <button class="btn-prev" type="submit">✏️ Editar</button>
+  </form>
 </div>

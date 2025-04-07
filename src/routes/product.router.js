@@ -36,7 +36,25 @@ router.get('/:cod', async (req, res) => {
     }
 })
 
+router.put('/:pid', async (req, res) => {
+    try {
+        const productoActualizado = await ProductModel.findByIdAndUpdate(
+            req.params.pid,
+            req.body,
+            { new: true, runValidators: true }
+        );
 
+        if (!productoActualizado) {
+            return res.status(404).json({ message: 'Producto no encontrado' });
+        }
+
+        console.log(`Producto actualizado:`, productoActualizado);
+        res.redirect('/');
+    } catch (error) {
+        console.error("Error al actualizar producto:", error);
+        return res.status(500).json({ message: 'Error al actualizar producto', error: error.message });
+    }
+});
 
     //borrar producto por ID
     router.delete('/:pid', async (req, res) => {

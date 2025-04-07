@@ -1,4 +1,3 @@
-
 <!-- Lista de productos -->
 <h1>Productos</h1>
 
@@ -12,27 +11,47 @@
     <button class="btn-agregar" type="submit">Agregar</button>
 </form>
 
-
-
-
-
-
-
 <h2 class="text-xl font-semibold mt-4"> {{info.totalDocs}} Productos encontrados:</h2>
+
+<!-- Filtro de categorías -->
+<form action="/" method="GET">
+  <label for="categoria">Filtrar por categoría:</label>
+  <select name="categoria" id="categoria" class="input-style">
+    <option value="">Todas</option>
+    <option value="placas madre" {{#ifCond categoria "placas madre"}}selected{{/ifCond}}>Placas madre</option>
+    <option value="almacenamiento" {{#ifCond categoria "almacenamiento"}}selected{{/ifCond}}>Almacenamiento</option>
+    <option value="procesadores" {{#ifCond categoria "procesadores"}}selected{{/ifCond}}>Procesadores</option>
+    <option value="audio" {{#ifCond categoria "audio"}}selected{{/ifCond}}>Audio</option>
+    <option value="monitores" {{#ifCond categoria "monitores"}}selected{{/ifCond}}>Monitores</option>
+    <option value="gabinetes" {{#ifCond categoria "gabinetes"}}selected{{/ifCond}}>Gabinetes</option>
+    <option value="fuentes" {{#ifCond categoria "fuentes"}}selected{{/ifCond}}>Fuentes</option>
+    <option value="perifericos" {{#ifCond categoria "perifericos"}}selected{{/ifCond}}>Periféricos</option>
+    <option value="refrigeracion" {{#ifCond categoria "refrigeracion"}}selected{{/ifCond}}>Refrigeración</option>
+    <option value="placas de video" {{#ifCond categoria "placas de video"}}selected{{/ifCond}}>Placas de video</option>
+    <option value="accesorios" {{#ifCond categoria "accesorios"}}selected{{/ifCond}}>Accesorios</option>
+    <option value="memoria ram" {{#ifCond categoria "memoria ram"}}selected{{/ifCond}}>Memoria RAM</option>
+  </select>
+  <button type="submit">Filtrar</button>
+</form>
 
 <div class="product-container">
 {{#each info.docs}}
     <div class="product-card">
-        <h3> {{this.nombre}} </h3>
+        <a href="/product/{{this.cod}}"><h3> {{this.nombre}} </h3></a>
         <div class="product-info">
-        <p> 💵 ${{this.precio}}</p>
-        <p> Categoría: {{this.categoria}}</p>
+            <p> 💵 ${{this.precio}}</p>
+            <p> Categoría: {{this.categoria}}</p>
         </div>
-    <!-- Botón de eliminar -->
-    <form action="/product/{{this._id}}?_method=DELETE" method="POST">
-        <button type="submit" class="btn-eliminar">🗑️ Eliminar</button>
-    </form>
-    
+
+        <!-- Botón de agregar al carrito -->
+        <form action="/cart/67f4087af15547aecd2df95a/product/{{this._id}}" method="POST">
+            <button type="submit">Agregar al carrito</button>
+        </form>
+
+        <!-- Botón de eliminar -->
+        <form action="/product/{{this._id}}?_method=DELETE" method="POST">
+            <button type="submit" class="btn-eliminar">🗑️ Eliminar</button>
+        </form>
     </div>
 {{/each}}
 </div>
@@ -40,12 +59,15 @@
 <!-- Controles de paginación -->
 <div class="paginas-container">
 {{#if info.hasPrevPage}}
-    <a class="btn-prev" href="/?page={{info.prevPage}}&limit=5">Página Anterior</a>
+  <a class="btn-prev" href="/?page={{info.prevPage}}&limit=5{{#if categoria}}&categoria={{categoria}}{{/if}}">Página Anterior</a>
 {{/if}}
 
 <p class="text-center">Página {{info.page}} de {{info.totalPages}}</p>
 
 {{#if info.hasNextPage}}
-    <a class="btn-prev" href="/?page={{info.nextPage}}&limit=5">Página Siguiente</a>
+  <a class="btn-prev" href="/?page={{info.nextPage}}&limit=5{{#if categoria}}&categoria={{categoria}}{{/if}}">Página Siguiente</a>
 {{/if}}
 </div>
+
+<!-- Botón carrito -->
+<a href="/cart/67f4087af15547aecd2df95a"><h3> 🛒 Carrito </h3></a>

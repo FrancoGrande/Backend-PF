@@ -1,0 +1,9 @@
+<h2>🛒 Carrito</h2>
+
+<ul>
+  {{#each cart.products}}
+    <li>{{this.product.nombre}} - 💵 ${{this.product.precio}} - Cantidad: {{this.quantity}}</li>
+  {{/each}}
+</ul>
+
+<a href="/" class="btn-volver">⬅ Volver al inicio</a>
