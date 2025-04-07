@@ -8,6 +8,13 @@ const router = Router();
 router.post('/', async (req, res) => {
     try {
 
+        if (!req.body.nombre || !req.body.precio) {
+            return res.status(400).send("Falta completar campos");
+        }
+        if (req.body.precio < 1) {
+            return res.status(400).send("El precio no puede ser 0 o negativo");
+        }
+
         const newProduct = new ProductModel(req.body);
         console.log("nuevo producto:", newProduct)
         await newProduct.save();
@@ -46,6 +53,14 @@ router.put('/:pid', async (req, res) => {
 
         if (!productoActualizado) {
             return res.status(404).json({ message: 'Producto no encontrado' });
+        }
+
+        if (req.body.precio < 1) {
+            return res.status(400).send("El precio no puede ser 0 o negativo");
+        }
+
+        if (req.body.stock < 1) {
+            return res.status(400).send("El stock no puede ser negativo");
         }
 
         console.log(`Producto actualizado:`, productoActualizado);
