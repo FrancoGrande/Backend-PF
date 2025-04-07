@@ -1,9 +1,14 @@
+<a href="/" class="btn-volver">Volver al inicio</a>
+
 <h2>🛒 Carrito</h2>
 
 <ul>
   {{#each cart.products}}
-    <li>{{this.product.nombre}} - 💵 ${{this.product.precio}} - Cantidad: {{this.quantity}}</li>
+    <li>{{this.product.nombre}} - 💵 ${{this.product.precio}} - Cantidad: {{this.quantity}}
+      <form action="/cart/{{../cart._id}}/product/{{this.product._id}}?_method=DELETE" method="POST" style="display:inline;">
+        <button class="btn-eliminar" type="submit">Eliminar</button>
+      </form>
+    </li>
   {{/each}}
 </ul>
 
-<a href="/" class="btn-volver">⬅ Volver al inicio</a>

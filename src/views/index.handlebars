@@ -8,7 +8,7 @@
     <input type="text" name="nombre" class="input-style" id="nombre" placeholder="Nombre" required />
     <input type="number" name="precio" class="input-style" id="precio" placeholder="Precio" required />
     <input type="text" name="categoria" class="input-style" id="categoria" placeholder="Categoría" required />
-    <button class="btn-agregar" type="submit">Agregar</button>
+    <button class="btn-prev" type="submit">Agregar</button>
 </form>
 
 <h2 class="text-xl font-semibold mt-4"> {{info.totalDocs}} Productos encontrados:</h2>
@@ -31,7 +31,7 @@
     <option value="accesorios" {{#ifCond categoria "accesorios"}}selected{{/ifCond}}>Accesorios</option>
     <option value="memoria ram" {{#ifCond categoria "memoria ram"}}selected{{/ifCond}}>Memoria RAM</option>
   </select>
-  <button type="submit">Filtrar</button>
+  <button class="btn-prev" type="submit">Filtrar</button>
 </form>
 
 <div class="product-container">
@@ -45,7 +45,7 @@
 
         <!-- Botón de agregar al carrito -->
         <form action="/cart/67f4087af15547aecd2df95a/product/{{this._id}}" method="POST">
-            <button type="submit">Agregar al carrito</button>
+            <button  type="submit">Agregar al carrito</button>
         </form>
 
         <!-- Botón de eliminar -->
@@ -70,4 +70,4 @@
 </div>
 
 <!-- Botón carrito -->
-<a href="/cart/67f4087af15547aecd2df95a"><h3> 🛒 Carrito </h3></a>
+<a   href="/cart/67f4087af15547aecd2df95a"><h3 class="btn-volver"> 🛒 Carrito </h3></a>
