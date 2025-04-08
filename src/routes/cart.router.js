@@ -12,13 +12,22 @@ router.get('/:cid', async (req, res) => {
         .lean();
         
         if (!cart) return res.status(404).render('error', { error: 'Carrito no encontrado' });
-
-        res.render('cart', { cart });
+        let total = 0
+        cart.products.forEach(p => {
+            total += p.product.precio * p.quantity;
+        });
+        res.render('cart', { cart, total });
     } catch (error) {
         console.error(error);
         res.status(500).render('error', { error: 'Error al obtener el carrito' });
     }
+
+
+
+
 });
+
+
 
 // Crear un nuevo carrito vacío
 router.post('/', async (req, res) => {
@@ -64,7 +73,7 @@ router.post('/:cid/product/:pid', async (req, res) => {
             carrito.products.push({ product: pid, quantity: 1 });
             console.log("Producto agregado al carrito");
         }
-    
+        
         await carrito.save();
         console.log("Carrito después:", carrito.products);
     

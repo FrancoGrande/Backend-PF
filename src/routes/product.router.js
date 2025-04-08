@@ -8,7 +8,7 @@ const router = Router();
 router.post('/', async (req, res) => {
     try {
 
-        if (!req.body.nombre || !req.body.precio) {
+        if (!req.body.nombre || !req.body.precio || !req.body.categoria) {
             return res.status(400).send("Falta completar campos");
         }
         if (req.body.precio < 1) {
